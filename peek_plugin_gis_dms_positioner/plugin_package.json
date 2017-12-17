@@ -1,0 +1,33 @@
+{
+    "plugin": {
+        "title": "GIS DMS Positioner Plugin",
+        "packageName": "peek_plugin_gis_dms_positioner",
+        "version": "0.0.1",
+        "buildNumber": "#PLUGIN_BUILD#",
+        "buildDate": "#BUILD_DATE#",
+        "creator": "Synerty Pty Ltd",
+        "website": "www.synerty.com"
+    },
+    "requiresServices": [
+        "mobile",
+        "desktop"
+    ],
+    "mobile": {
+        "moduleDir": "plugin-module"
+    },
+    "desktop": {
+        "moduleDir": "plugin-module",
+        "rootServices": [
+            {
+                "file": "_private/PositionOnDmsService",
+                "class": "PositionOnDmsService",
+                "persistent": true
+            },
+            {
+                "file": "_private/PositionOnGisService",
+                "class": "PositionOnGisService",
+                "persistent": true
+            }
+        ]
+    }
+}
