@@ -9,11 +9,26 @@
         "website": "www.synerty.com"
     },
     "requiresServices": [
+        "client",
         "mobile",
         "desktop"
     ],
+    "client" : {
+    },
     "mobile": {
-        "moduleDir": "plugin-module"
+        "moduleDir": "plugin-module",
+        "rootServices": [
+            {
+                "file": "_private/PositionOnDmsService",
+                "class": "PositionOnDmsService",
+                "persistent": true
+            },
+            {
+                "file": "_private/PositionOnGisService",
+                "class": "PositionOnGisService",
+                "persistent": true
+            }
+        ]
     },
     "desktop": {
         "moduleDir": "plugin-module",

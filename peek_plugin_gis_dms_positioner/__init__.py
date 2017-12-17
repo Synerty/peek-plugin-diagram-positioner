@@ -1,22 +1,11 @@
 
-from peek_plugin_base.server.PluginServerEntryHookABC import PluginServerEntryHookABC
+
 from peek_plugin_base.client.PluginClientEntryHookABC import PluginClientEntryHookABC
-from peek_plugin_base.agent.PluginAgentEntryHookABC import PluginAgentEntryHookABC
 from typing import Type
 
-__version__ = '0.0.1'
-
-
-def peekServerEntryHook() -> Type[PluginServerEntryHookABC]:
-    from ._private.server.ServerEntryHook import ServerEntryHook
-    return ServerEntryHook
+__version__ = '0.7.8'
 
 
 def peekClientEntryHook() -> Type[PluginClientEntryHookABC]:
     from ._private.client.ClientEntryHook import ClientEntryHook
     return ClientEntryHook
-
-
-def peekAgentEntryHook() -> Type[PluginAgentEntryHookABC]:
-    from ._private.agent.AgentEntryHook import AgentEntryHook
-    return AgentEntryHook
