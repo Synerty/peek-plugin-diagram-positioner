@@ -17,8 +17,6 @@ import { DmsDiagramPositionService } from "@peek/peek_plugin_pof_diagram/DmsDiag
 @Injectable()
 export class PositionOnDmsService {
 
-    private _subject = new Subject<DiagramItemPopupContextI>();
-
     constructor(private diagramService: DiagramItemPopupService,
         private dmsPos: DmsDiagramPositionService) {
         this.diagramService
