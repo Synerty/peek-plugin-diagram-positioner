@@ -3,7 +3,7 @@
 from peek_plugin_base.client.PluginClientEntryHookABC import PluginClientEntryHookABC
 from typing import Type
 
-__version__ = '1.1.6'
+__version__ = '1.2.0a3'
 
 
 def peekClientEntryHook() -> Type[PluginClientEntryHookABC]:
