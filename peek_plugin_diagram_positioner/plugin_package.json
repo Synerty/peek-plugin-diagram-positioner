@@ -1,7 +1,7 @@
 {
     "plugin": {
         "title": "GIS DMS Positioner Plugin",
-        "packageName": "peek_plugin_gis_dms_positioner",
+        "packageName": "peek_plugin_diagram_positioner",
     "version":"0.0.0",
         "buildNumber": "#PLUGIN_BUILD#",
         "buildDate": "#BUILD_DATE#",
@@ -19,13 +19,8 @@
         "moduleDir": "plugin-module",
         "rootServices": [
             {
-                "file": "_private/PositionOnDmsService",
-                "class": "PositionOnDmsService",
-                "persistent": true
-            },
-            {
-                "file": "_private/PositionOnGisService",
-                "class": "PositionOnGisService",
+                "file": "_private/PositionOnDiagramService",
+                "class": "PositionOnDiagramService",
                 "persistent": true
             }
         ]
@@ -34,13 +29,8 @@
         "moduleDir": "plugin-module",
         "rootServices": [
             {
-                "file": "_private/PositionOnDmsService",
-                "class": "PositionOnDmsService",
-                "persistent": true
-            },
-            {
-                "file": "_private/PositionOnGisService",
-                "class": "PositionOnGisService",
+                "file": "_private/PositionOnDiagramService",
+                "class": "PositionOnDiagramService",
                 "persistent": true
             }
         ]

@@ -9,10 +9,10 @@ from setuptools import find_packages
 #
 author = "Synerty"
 author_email = 'contact@synerty.com'
-py_package_name = "peek_plugin_gis_dms_positioner"
+py_package_name = "peek_plugin_diagram_positioner"
 pip_package_name = py_package_name.replace('_', '-')
 package_version = '0.0.0'
-description = 'Peek Plugin GisDmsPositioner - My first enhancement.'
+description = 'Peek Plugin DiagramPositioner - My first enhancement.'
 
 download_url = 'https://bitbucket.org/synerty/%s/get/%s.zip'
 download_url %= pip_package_name, package_version

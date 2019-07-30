@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PY_PACKAGE="peek_plugin_gis_dms_positioner"
+PY_PACKAGE="peek_plugin_diagram_positioner"
 PYPI_PUBLISH="0"
 
 GITHUB_PUSH="1"
