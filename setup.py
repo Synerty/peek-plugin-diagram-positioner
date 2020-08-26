@@ -1,8 +1,8 @@
 import os
 import shutil
-from setuptools import setup
 
 from setuptools import find_packages
+from setuptools import setup
 
 #
 # Modify these values to fork a new plugin
@@ -53,11 +53,19 @@ def find_package_files():
 
 package_files = find_package_files()
 
+# Force the dependencies to be the same branch
+reqVer = '.'.join(package_version.split('.')[0:2]) + ".*"
+
+# >=2.0.*,>=2.0.6
+requirements = ['peek-plugin-base', 'peek-plugin-pof-diagram', 'peek-plugin-gis-diagram',
+                'peek-plugin-diagram']
+requirements = ["%s==%s,>=%s" % (pkg, reqVer, package_version) for pkg in requirements]
+
 setup(
     name=pip_package_name,
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*", "tests"]),
     package_data={'': package_files},
-    install_requires=['peek-plugin-base', 'peek-plugin-pof-diagram', 'peek-plugin-gis-diagram', 'peek-plugin-diagram'],
+    install_requires=requirements,
     version=package_version,
     description=description,
     author=author,
