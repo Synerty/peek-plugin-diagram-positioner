@@ -1,19 +1,13 @@
-import {Injectable} from "@angular/core";
-
-import {
-    DocDbPopupActionI,
-    DocDbPopupContextI,
-    DocDbPopupService,
-    DocDbPopupTypeE
-} from "@peek/peek_plugin_docdb";
+import { Injectable } from "@angular/core"
+import { DocDbPopupActionI, DocDbPopupContextI, DocDbPopupService, DocDbPopupTypeE } from "@peek/peek_plugin_docdb"
 import {
     DiagramCoordSetService,
     DiagramCoordSetTuple,
     DiagramPositionService,
     DispKeyLocation
-} from "@peek/peek_plugin_diagram";
-import {ComponentLifecycleEventEmitter} from "@synerty/vortexjs";
-import {Router} from "@angular/router";
+} from "@peek/peek_plugin_diagram"
+import { NgLifeCycleEvents } from "@synerty/peek-plugin-base-js"
+import { Router } from "@angular/router"
 
 /** Position On GIS Service
  *
@@ -21,121 +15,124 @@ import {Router} from "@angular/router";
  *
  */
 @Injectable()
-export class PositionOnDiagramService extends ComponentLifecycleEventEmitter {
-
+export class PositionOnDiagramService extends NgLifeCycleEvents {
     // These are hard coded because of dependency issues
     private readonly MODEL_SETS = {
-        'pofDiagram': {name: "DMS Diagram", url: "peek_plugin_pof_diagram"},
-        'gisDiagram': {name: "GIS Diagram", url: "peek_plugin_gis_diagram"},
-    };
-
-    private coordSetsByModelSet: { [modelSetKey: string]: DiagramCoordSetTuple[] } = {};
-    private coordSetsNameLookup: { [key: string]: string } = {};
-
-    constructor(private router: Router,
-                private objectPopupService: DocDbPopupService,
-                private positionService: DiagramPositionService,
-                private coordSetService: DiagramCoordSetService) {
-        super();
-
+        "pofDiagram": {name: "DMS Diagram", url: "peek_plugin_pof_diagram"},
+        "gisDiagram": {name: "GIS Diagram", url: "peek_plugin_gis_diagram"},
+    }
+    
+    private coordSetsByModelSet: { [modelSetKey: string]: DiagramCoordSetTuple[] } = {}
+    private coordSetsNameLookup: { [key: string]: string } = {}
+    
+    constructor(
+        private router: Router,
+        private objectPopupService: DocDbPopupService,
+        private positionService: DiagramPositionService,
+        private coordSetService: DiagramCoordSetService
+    ) {
+        super()
+        
         this.objectPopupService
             .popupObservable(DocDbPopupTypeE.summaryPopup)
             .takeUntil(this.onDestroyEvent)
-            .subscribe((c: DocDbPopupContextI) => this.addLocateOnActions(c));
-
+            .subscribe((c: DocDbPopupContextI) => this.addLocateOnActions(c))
+        
         objectPopupService
             .popupObservable(DocDbPopupTypeE.detailPopup)
             .takeUntil(this.onDestroyEvent)
-            .subscribe((c: DocDbPopupContextI) => this.addLocateOnActions(c));
-
-
+            .subscribe((c: DocDbPopupContextI) => this.addLocateOnActions(c))
+        
         for (const modelSetKey of Object.keys(this.MODEL_SETS)) {
             this.coordSetService
                 .diagramCoordSetTuples(modelSetKey)
                 .takeUntil(this.onDestroyEvent)
                 .subscribe((coordSets: DiagramCoordSetTuple[]) => {
-                    this.coordSetsByModelSet[modelSetKey] = coordSets;
-                    this.rebuildCoordSetNameMap();
-                });
+                    this.coordSetsByModelSet[modelSetKey] = coordSets
+                    this.rebuildCoordSetNameMap()
+                })
         }
-
     }
-
+    
     private rebuildCoordSetNameMap(): void {
-        this.coordSetsNameLookup = {};
+        this.coordSetsNameLookup = {}
         for (const msKey of Object.keys(this.MODEL_SETS)) {
             for (const coordSet of (this.coordSetsByModelSet[msKey] || [])) {
                 this.coordSetsNameLookup[`${msKey}-${coordSet.key}`]
-                    = coordSet.name;
+                    = coordSet.name
             }
         }
     }
-
-    private nameForCs(modelSetKey: string, coordSetKy: string): string {
-        return this.coordSetsNameLookup[`${modelSetKey}-${coordSetKy}`];
+    
+    private nameForCs(
+        modelSetKey: string,
+        coordSetKy: string
+    ): string {
+        return this.coordSetsNameLookup[`${modelSetKey}-${coordSetKy}`]
     }
-
+    
     private async addLocateOnActions(context: DocDbPopupContextI): Promise<void> {
-        const promises = [];
-        const positions = [];
-
+        const promises = []
+        const positions = []
+        
         for (const modelSetKey of Object.keys(this.MODEL_SETS))
-            promises.push(this.loadPositions(modelSetKey, context, positions));
-
-        await Promise.all(promises);
-
+            promises.push(this.loadPositions(modelSetKey, context, positions))
+        
+        await Promise.all(promises)
+        
         if (positions.length == 0)
-            return;
-
+            return
+        
         // If there is just one item, then just go straight there.
         if (positions.length == 1) {
-            const action = positions[0];
-            action.tooltip = action.name;
-            action.name = null;
-            action.icon = 'map-marker';
-            context.addAction(action);
-            return;
+            const action = positions[0]
+            action.tooltip = action.name
+            action.name = null
+            action.icon = "map-marker"
+            context.addAction(action)
+            return
         }
-
+        
         context.addAction({
             name: null,
             tooltip: "Goto Other Diagram Locations",
-            icon: 'map-marker',
+            icon: "map-marker",
             callback: null,
             children: positions,
-        });
+        })
     }
-
-    private async loadPositions(modelSetKey: string,
-                                context: DocDbPopupContextI,
-                                positions: DocDbPopupActionI[]): Promise<void> {
-        const coordSetKey = context.options.triggeredForContext;
-        const dispKey = context.key;
-
+    
+    private async loadPositions(
+        modelSetKey: string,
+        context: DocDbPopupContextI,
+        positions: DocDbPopupActionI[]
+    ): Promise<void> {
+        const coordSetKey = context.options.triggeredForContext
+        const dispKey = context.key
+        
         const locations: DispKeyLocation[] = await this.positionService
-            .locationsForKey(modelSetKey, dispKey);
-
+            .locationsForKey(modelSetKey, dispKey)
+        
         for (const location of locations) {
-
+            
             // Ignore positioning on the same coord set
             if (location.coordSetKey == coordSetKey)
-                continue;
-
-            const name = this.MODEL_SETS[modelSetKey].name + ' - '
-                + this.nameForCs(modelSetKey, location.coordSetKey);
-
+                continue
+            
+            const name = this.MODEL_SETS[modelSetKey].name + " - "
+                + this.nameForCs(modelSetKey, location.coordSetKey)
+            
             positions.push({
                 name: name,
                 tooltip: null,
                 icon: null,
                 callback: () => this.updatePosition(location),
                 children: []
-            });
+            })
         }
     }
-
+    
     private updatePosition(location: DispKeyLocation): void {
-
         this.positionService.isReadyObservable()
             .first()
             .subscribe(() => {
@@ -143,11 +140,9 @@ export class PositionOnDiagramService extends ComponentLifecycleEventEmitter {
                     location.modelSetKey,
                     location.coordSetKey,
                     {highlightKey: location.dispKey}
-                );
-            });
-
-        this.router.navigate([this.MODEL_SETS[location.modelSetKey].url]);
-
+                )
+            })
+        
+        this.router.navigate([this.MODEL_SETS[location.modelSetKey].url])
     }
-
 }
