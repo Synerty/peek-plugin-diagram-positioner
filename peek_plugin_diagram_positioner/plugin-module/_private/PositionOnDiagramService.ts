@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core"
-import { DocDbPopupActionI, DocDbPopupContextI, DocDbPopupService, DocDbPopupTypeE } from "@_peek/peek_plugin_docdb"
+import { DocDbPopupActionI, DocDbPopupContextI, DocDbPopupService, DocDbPopupTypeE } from "@peek/peek_plugin_docdb"
 import {
     DiagramCoordSetService,
     DiagramCoordSetTuple,
     DiagramPositionService,
     DispKeyLocation
-} from "@_peek/peek_plugin_diagram"
+} from "@peek/peek_plugin_diagram"
 import { NgLifeCycleEvents } from "@synerty/peek-plugin-base-js"
 import { Router } from "@angular/router"
 
