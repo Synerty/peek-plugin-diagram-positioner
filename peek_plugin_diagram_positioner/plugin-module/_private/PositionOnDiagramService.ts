@@ -85,18 +85,18 @@ export class PositionOnDiagramService extends NgLifeCycleEvents {
         
         // If there is just one item, then just go straight there.
         if (positions.length == 1) {
-            const action = positions[0]
-            action.tooltip = action.name
-            action.name = null
-            action.icon = "map-marker"
-            context.addAction(action)
-            return
+            const action = positions[0];
+            action.tooltip = action.name;
+            action.name = null;
+            action.icon = "environment";
+            context.addAction(action);
+            return;
         }
         
         context.addAction({
             name: null,
             tooltip: "Goto Other Diagram Locations",
-            icon: "map-marker",
+            icon: "environment",
             callback: null,
             children: positions,
         })
@@ -145,4 +145,5 @@ export class PositionOnDiagramService extends NgLifeCycleEvents {
         
         this.router.navigate([this.MODEL_SETS[location.modelSetKey].url])
     }
+
 }
