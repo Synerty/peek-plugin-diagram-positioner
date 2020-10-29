@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { DocDbPopupActionI, DocDbPopupContextI, DocDbPopupService, DocDbPopupTypeE } from "@peek/peek_plugin_docdb"
+import { DocDbPopupActionI, DocDbPopupContextI, DocDbPopupService, DocDbPopupTypeE } from "@peek/peek_core_docdb"
 import {
     DiagramCoordSetService,
     DiagramCoordSetTuple,
@@ -18,7 +18,7 @@ import { Router } from "@angular/router"
 export class PositionOnDiagramService extends NgLifeCycleEvents {
     // These are hard coded because of dependency issues
     private readonly MODEL_SETS = {
-        "pofDiagram": {name: "DMS Diagram", url: "peek_plugin_pof_diagram"},
+        "pofDiagram": {name: "DMS Diagram", url: "peek_plugin_enmac_diagram"},
         "gisDiagram": {name: "GIS Diagram", url: "peek_plugin_gis_diagram"},
     }
     
