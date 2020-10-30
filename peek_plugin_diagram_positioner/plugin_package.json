@@ -9,13 +9,12 @@
         "website": "www.synerty.com"
     },
     "requiresServices": [
-        "client",
-        "mobile",
-        "desktop"
+        "field",
+        "office"
     ],
     "client" : {
     },
-    "mobile": {
+    "field": {
         "moduleDir": "plugin-module",
         "rootServices": [
             {
@@ -25,7 +24,7 @@
             }
         ]
     },
-    "desktop": {
+    "office": {
         "moduleDir": "plugin-module",
         "rootServices": [
             {
