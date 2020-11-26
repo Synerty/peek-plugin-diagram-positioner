@@ -57,8 +57,7 @@ package_files = find_package_files()
 reqVer = '.'.join(package_version.split('.')[0:2]) + ".*"
 
 # >=2.0.*,>=2.0.6
-requirements = ['peek-plugin-base', 'peek-plugin-enmac-diagram', 'peek-plugin-gis-diagram',
-                'peek-plugin-diagram']
+requirements = ['peek-plugin-base', 'peek-plugin-diagram']
 requirements = ["%s==%s,>=%s" % (pkg, reqVer, package_version) for pkg in requirements]
 
 setup(
