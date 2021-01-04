@@ -6,7 +6,6 @@ logger = logging.getLogger(__name__)
 
 
 class ClientEntryHook(PluginClientEntryHookABC):
-
     def load(self) -> None:
         logger.debug("Loaded")
 

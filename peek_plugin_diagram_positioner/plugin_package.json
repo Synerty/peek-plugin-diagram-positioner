@@ -2,7 +2,7 @@
     "plugin": {
         "title": "GIS DMS Positioner Plugin",
         "packageName": "peek_plugin_diagram_positioner",
-    "version":"0.0.0",
+        "version": "0.0.0",
         "buildNumber": "#PLUGIN_BUILD#",
         "buildDate": "#BUILD_DATE#",
         "creator": "Synerty Pty Ltd",
@@ -12,7 +12,7 @@
         "field",
         "office"
     ],
-    "client" : {
+    "client": {
     },
     "field": {
         "moduleDir": "plugin-module",
