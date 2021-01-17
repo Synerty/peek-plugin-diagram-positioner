@@ -11,7 +11,7 @@ import {
     DiagramPositionService,
     DispKeyLocation
 } from "@peek/peek_plugin_diagram"
-import { NgLifeCycleEvents } from "@synerty/peek-plugin-base-js"
+import { NgLifeCycleEvents } from "@synerty/vortexjs"
 import { Router } from "@angular/router"
 
 /** Position On GIS Service
