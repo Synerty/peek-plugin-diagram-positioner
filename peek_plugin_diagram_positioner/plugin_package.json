@@ -8,12 +8,8 @@
         "creator": "Synerty Pty Ltd",
         "website": "www.synerty.com"
     },
-    "requiresServices": [
-        "field",
-        "office"
-    ],
-    "client": {
-    },
+    "requiresServices": ["field", "office"],
+    "client": {},
     "field": {
         "moduleDir": "plugin-module",
         "rootServices": [
