@@ -1,3 +1,4 @@
+import { first, takeUntil } from "rxjs/operators";
 import { Injectable } from "@angular/core";
 import {
     DocDbPopupActionI,
@@ -42,18 +43,18 @@ export class PositionOnDiagramService extends NgLifeCycleEvents {
 
         this.objectPopupService
             .popupObservable(DocDbPopupTypeE.summaryPopup)
-            .takeUntil(this.onDestroyEvent)
+            .pipe(takeUntil(this.onDestroyEvent))
             .subscribe((c: DocDbPopupContextI) => this.addLocateOnActions(c));
 
         objectPopupService
             .popupObservable(DocDbPopupTypeE.detailPopup)
-            .takeUntil(this.onDestroyEvent)
+            .pipe(takeUntil(this.onDestroyEvent))
             .subscribe((c: DocDbPopupContextI) => this.addLocateOnActions(c));
 
         for (const modelSetKey of Object.keys(this.MODEL_SETS)) {
             this.coordSetService
                 .diagramCoordSetTuples(modelSetKey)
-                .takeUntil(this.onDestroyEvent)
+                .pipe(takeUntil(this.onDestroyEvent))
                 .subscribe((coordSets: DiagramCoordSetTuple[]) => {
                     this.coordSetsByModelSet[modelSetKey] = coordSets;
                     this.rebuildCoordSetNameMap();
@@ -140,7 +141,7 @@ export class PositionOnDiagramService extends NgLifeCycleEvents {
     private updatePosition(location: DispKeyLocation): void {
         this.positionService
             .isReadyObservable()
-            .first()
+            .pipe(first())
             .subscribe(() => {
                 this.positionService.positionByKey(
                     location.modelSetKey,
