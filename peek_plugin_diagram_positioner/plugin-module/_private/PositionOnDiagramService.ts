@@ -141,6 +141,7 @@ export class PositionOnDiagramService extends NgLifeCycleEvents {
     private updatePosition(location: DispKeyLocation): void {
         this.positionService
             .isReadyObservable()
+            .pipe(first((ready) => ready))
             .pipe(first())
             .subscribe(() => {
                 this.positionService.positionByKey(
