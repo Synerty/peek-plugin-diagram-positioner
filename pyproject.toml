@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "peek-plugin-diagram-positioner"
+version = "0.0.0"
+authors = [{name = "Synerty", email = "contact@synerty.com"}]
+description = "Peek Plugin Diagram Positioner."
+keywords = ["Peek", "Python", "Platform", "synerty"]
+classifiers = []
+dependencies = [
+    "peek-plugin-base==0.0.*,>=0.0.0",
+    "peek-plugin-diagram==0.0.*,>=0.0.0",
+]
+
+[project.urls]
+Homepage = "https://bitbucket.org/synerty/peek-plugin-diagram-positioner"
+Download = "https://bitbucket.org/synerty/peek-plugin-diagram-positioner/get/0.0.0.zip"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = false
+
+[tool.setuptools.packages.find]
+exclude = ["*.tests"] # *.tests.*; tests.*; tests
+namespaces = false
